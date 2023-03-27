@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+    <head>
+		<Meta http-equiv="Page-Enter" Content="blendTrans(Duration=0.5)">
+		<Meta http-equiv="Page-Exit" Content="blendTrans(Duration=0.5)">
+        <meta charset="utf-8">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+        <title>My mushroom</title>
+	</head>
+    <body>
+		<div class="Menu fixed-top">
+			<div class="row align-items-end" style="margin-top: 10px;">
+				<div class="col-6">
+					<h1>Mushroom Kindom</h1>
+				</div>
+				<div class="col-2">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+						My Mushroom
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="Translate.html">Translate record</a>
+						<a class="dropdown-item" href="modal_test.html" >My mushroom</a>
+					</div>
+				</div>
+                <div class="col">
+					<button  id="connect_button" class="btn btn-default" type="button" value="connect" onclick="accessToMetamask(null,null,null)">
+						Connect Wallet
+					</button>
+				</div>
+                <div class="col">
+					<button  id="pair_button" class="btn btn-default" type="button" onclick="window.location.href='pair.html'">
+						Mushroom Pair
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="div">
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Shop</h3>
+                    <button type="button" class="btn btn-default" onclick="closeshop()" style="font-size: 20px;">x</button>
+                </div>
+                <div class="modal-body">
+                    <div id ="shopbody" class="row">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" onclick="closeshop()">close</button>
+                </div>
+            </div>
+		</div>
+        <div>
+            <!-- The Modal -->
+            <div id="selfmushroom" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Home</h3>
+                        <button type="button" class="btn btn-default" onclick="selfclose()" style="font-size: 20px">x</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="selfdiv">
+                            <img id="selfimg" width="180" style="display:block; margin:auto;">
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <h3 id="selfname" style="margin-left: 10px; margin-top: 100px;">Name</h3>
+                                
+                            </div>
+                            <!-- <div class="col" style="margin-top:100px;align-items: right; margin-left:40px">
+                                <div class="purchasenumber">
+                                    <div class="number">
+                                        <i class = "minus iconfont icon-jianhao"></i>
+                                        <input id="costomprice" type="number" min = "1" step="1" value="0.0">
+                                        <i class = "plus iconfont icon-jiahao1"></i>
+                                    </div>
+                                </div>
+                                <h6 style="margin-left:150px;">ETH</h6>
+                            </div> -->
+                            <!-- <div class="col" style="margin-top:96px;margin-right:5px;align-items: left;">
+                                <button type="button" class="btn btn-light" style="margin-left:0px;" onclick="sell()">sell</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" onclick="selfclose()">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<style>
+        .btn-light {
+            color: #FFFFFF;
+            background-color: #ED9E59;
+            border-color: #ED9E59;
+        }
+		.Test{
+			background-color: #ED9E59;
+		}
+		.Menu{
+			clear:both;
+            height: 70px;
+			padding-left: 10px;
+			background-color: #FAD3C1;
+		}
+		.btn-group{
+			clear:both;
+			background-color: #FAD3C1;
+		}
+		.dropdown-menu{
+			background-color: #FFFFFF;
+		}
+	    h1{color:#FFFFFF;}
+		h3{color:#000000;}
+		.Box{
+			padding-left: 50px;
+			height: 450px;
+  			line-height: 450px;
+		}
+		.card{
+			width: 210px;
+		}
+        .card-title{
+            margin-top: 20px;
+            text-align: center;
+        }
+		.card-footer{
+			height: 60px;
+  			line-height: 0px;
+		}
+        #div {
+            padding-top: 150px;
+            padding-left: 50px;
+            clear: both;
+        }
+        #myModal{
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            overflow: auto;
+        }
+        .modal-header{
+            height: 60px;
+        }
+        .modal-footer{
+            height: 60px;
+        }
+        .selfdiv{
+            display: flex;
+            align-items: center;
+        }
+        #selfmushroom{
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            overflow: auto;
+        }
+	</style>
+	<script>
+
+        var id = 1;
+        var choose_id;
+        var modal = document.getElementById("myModal");
+        var selfmodal = document.getElementById("selfmushroom");
+        var shopimgs = ["", "010101", "010102", "010203", "020301", "030101", "020104", "030302","random"];
+        var shopnames = ["", "MushroomHaha", "MushroomAlice", "MushroomBob", "MushroomAqsa", "MushroomAutumn", "MushroomErin", "MushroomJoy","Random"];
+        var shopprices = ["", "0.023", "1.33", "0.16", "0.467", "0.874", "1.877", "1.965","1"];
+        var havenames = [];
+        var head = [];
+        var body = [];
+        var color = [];
+        var names = [];
+        var allnum;
+        var f = 0;
+        //init();//一開始先顯示原本擁有的菇菇，再來新增新的菇菇
+
+        //connectContract();
+        let account;
+        const accessToMetamask = async (fee,dna,name) => {
+            if(window.ethereum !== "undefined") {
+                const accounts = await ethereum.request({ method: "eth_requestAccounts"});
+                account = accounts[0];
+                //alert(fee,dna,name);
+                if(fee!=null && dna == null){
+                    newMushroom(fee);
+                }else if(name != null && dna != null){
+                    buyMushroom(fee,dna,name);
+                }
+                //newMushroom(fee,dna);
+                //document.getElementById("accountArea").innerHTML = account;
+            }
+        }
+
+        const connectContract = async () => {
+            const ABI = [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "symbol",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "approved",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Approval",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "bool",
+                            "name": "approved",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "ApprovalForAll",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "approve",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "head",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "body",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "color",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "buyNewMushroom",
+                    "outputs": [],
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "_name",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "creatRandomMushroom",
+                    "outputs": [],
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256",
+                            "name": "head",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256",
+                            "name": "body",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "uint256",
+                            "name": "color",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "NewMushroom",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "previousOwner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "OwnershipTransferred",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "head",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "body",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "color",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "pairNewMushroom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "renounceOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "safeTransferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "data",
+                            "type": "bytes"
+                        }
+                    ],
+                    "name": "safeTransferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "approved",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setApprovalForAll",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Transfer",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "transferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "transferOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "_fee",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "updateFee",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "withdraw",
+                    "outputs": [],
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "balanceOf",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getApproved",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getMushrooms",
+                    "outputs": [
+                        {
+                            "components": [
+                                {
+                                    "internalType": "string",
+                                    "name": "name",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "head",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "body",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "color",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "id",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "uint8",
+                                    "name": "level",
+                                    "type": "uint8"
+                                }
+                            ],
+                            "internalType": "struct Token.Mushroom[]",
+                            "name": "",
+                            "type": "tuple[]"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "isApprovedForAll",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "mushrooms",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "head",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "body",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "color",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "level",
+                            "type": "uint8"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "name",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "owner",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "ownerOf",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes4",
+                            "name": "interfaceId",
+                            "type": "bytes4"
+                        }
+                    ],
+                    "name": "supportsInterface",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "symbol",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "tokenURI",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+            const Address = "0x76daBf464a93426BE26BF658bb3F1f1591615403";
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+            //alert("Connection Status: Success");
+            //return 1;
+            getmushroom_allnum();
+            //document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+        }
+
+        const newMushroom = async(fee) => {
+            const paymentAddress = '0x76daBf464a93426BE26BF658bb3F1f1591615403'
+            const amountEth = fee
+            const name = prompt('請輸入你的暱稱');
+            await window.contract.methods.creatRandomMushroom(name).send({ from: account,value: web3.utils.toWei(amountEth, "ether") });
+            modal.style.display = "none";
+        }
+
+        const buyMushroom = async(fee,dna,name) => {
+            const paymentAddress = '0x76daBf464a93426BE26BF658bb3F1f1591615403'
+            const amountEth = fee
+            var head = parseInt(dna.substring(1,2));
+            var body = parseInt(dna.substring(3,4));
+            var color = parseInt(dna.substring(5,6));
+            
+            await window.contract.methods.buyNewMushroom(name,head,body,color).send({ from: account,value: web3.utils.toWei(amountEth, "ether") });
+            modal.style.display = "none";
+        }
+
+        const getmushroom_allnum = async() => {
+            const data = await window.contract.methods.getMushrooms().call();
+            allnum = data.length;
+            for(i=0;i<allnum;i++){
+                head.push(data[i].head);
+                body.push(data[i].body);
+                color.push(data[i].color);
+                names.push(data[i].name);
+            }
+            //alert(head);
+            init();
+        }
+
+        connectContract();
+
+        const init = async() =>{
+            //connectContract();
+            // alert(f);
+            // while(f==1){
+            //     const data = await window.contract.methods.getMushrooms().call();
+            //     allnum = data.length;
+            //     alert(allnum);
+            // }
+            // const data = await window.contract.methods.getMushrooms().call();
+            // allnum = data.length;
+            //alert(allnum);
+            for(id=1; id<=allnum+1; id++){  //id要設好，數量跟solidity要
+                //alert(allnum);
+                if(!document.getElementById(id)) {
+                    var inp = document.createElement("button");
+                    inp.type = "button";
+                    inp.style.marginRight = "100px";
+                    inp.style.marginBottom = "100px";
+                    inp.className = "btn btn-default";
+                    inp.id = id;
+                    inp.onclick = function() {
+                        //alert(document.getElementById("img" + this.id).src);
+                        //alert(this.id);
+                        shopitem();
+                        choose_id = this.id;
+                        if(document.getElementById("img" + this.id).src == "http://127.0.0.1:5001/public/Mushroom_img/add-item.png"){
+                            modal.style.display = "block";
+                            window.onclick = function(event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+                        }
+                        else{
+                            selfmodal.style.display = "block";
+                            var str = document.getElementById("img" + this.id).src;
+                            var imgnum = str.substring(str.length-6, str.length-5);
+                            //alert(imgnum + " " + names[imgnum]);
+                            document.getElementById("selfimg").src= document.getElementById("img" + this.id).src;
+                            document.getElementById("selfname").innerHTML = names[this.id-1];
+                            window.onclick = function(event) {
+                                if (event.target == selfmodal) {
+                                    selfmodal.style.display = "none";
+                                }
+                            }
+                        }
+                    };
+                    dna = "0" + head[id-1]  + "0" +body[id-1] + "0" +color[id-1];
+                    if(id>allnum){
+                        if(!document.getElementById(id)) {
+                        var inp = document.createElement("button");
+                        inp.type = "button";
+                        inp.style.marginRight = "100px";
+                        inp.style.marginBottom = "100px";
+                        inp.className = "btn btn-default";
+                        inp.id = id;
+                        inp.onclick = function() {
+                            //alert(document.getElementById("img" + this.id).src);
+                            //alert(this.id);
+                            shopitem();
+                            choose_id = this.id;
+                            if(document.getElementById("img" + this.id).src == "http://127.0.0.1:5001/public/Mushroom_img/add-item.png"){
+                                modal.style.display = "block";
+                                window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                            }
+                            else{
+                                selfmodal.style.display = "block";
+                                var str = document.getElementById("img" + this.id).src;
+                                var imgnum = str.substring(str.length-6, str.length-5);
+                                //alert(imgnum + " " + names[imgnum]);
+                                document.getElementById("selfimg").src= document.getElementById("img" + this.id).src;
+                                document.getElementById("selfname").innerHTML = names[this.id-1];
+                                window.onclick = function(event) {
+                                    if (event.target == selfmodal) {
+                                        selfmodal.style.display = "none";
+                                    }
+                                }
+                            }
+                        };
+                        //dna = "0" + head[id-1]  + "0" +body[id-1] + "0" +color[id-1];
+                        dna = "add-item";
+                        inp.innerHTML = '<img id="img' + id + '" src="public/Mushroom_img/'+dna+'.png" width="100">';
+                        document.getElementById("div").appendChild(inp);
+                        }
+                    }
+                    //alert(dna);
+                    inp.innerHTML = '<img id="img' + id + '" src="public/Mushroom_img/'+dna+'.png" width="100">';
+                    document.getElementById("div").appendChild(inp);
+                }
+            }
+        }
+
+        
+
+        // setInterval(function(){
+        //     if(!document.getElementById(id)) {
+        //         var inp = document.createElement("button");
+        //         inp.type = "button";
+        //         inp.style.marginRight = "100px";
+        //         inp.style.marginBottom = "100px";
+        //         inp.className = "btn btn-default";
+        //         inp.id = id;
+        //         inp.onclick = function() {
+        //             //alert(this.id);
+        //             shopitem();
+        //             choose_id = this.id;
+
+        //             alert(document.getElementById("img" + this.id).src);
+
+        //             if(document.getElementById("img" + this.id).src == "http://127.0.0.1:5001/public/add-item.png"){
+        //                 modal.style.display = "block";
+        //                 window.onclick = function(event) {
+        //                     if (event.target == modal) {
+        //                         modal.style.display = "none";
+        //                     }
+        //                 }
+        //                 //newMushroom();
+                        
+        //             }
+        //             else{
+        //                 selfmodal.style.display = "block";
+        //                 var str = document.getElementById("img" + this.id).src;
+        //                 document.getElementById("selfimg").src= document.getElementById("img" + this.id).src;
+        //                 //alert(havenames[this.id]);
+        //                 document.getElementById("selfname").innerHTML = havenames[this.id - 1];
+        //                 window.onclick = function(event) {
+        //                     if (event.target == selfmodal) {
+        //                         selfmodal.style.display = "none";
+        //                     }
+        //                 }
+        //             }
+        //         };
+        //         //dna = "0" + head[0]  + "0" +body[0] + "0" +color[0];
+        //         //alert(dna);
+        //         inp.innerHTML = '<img id="img' + id + '" src="public/Mushroom_img/'+dna+'.png" width="100">';
+        //         document.getElementById("div").appendChild(inp);
+        //     }
+        // }, 100);
+		var flag = 0;
+        var idd = 1;
+        function shopitem(){
+            var string = "";
+            for(idd=1; idd<9; idd++){
+                string = string + "<div class='col-2' style='margin-left:25px;margin-top:10px'> <div class='card'> <div class='card-body' style='height:250px;'><h5 id='name" + idd + "' class='card-title' style='margin-top:0px;font-size:19px;'>" + shopnames[idd] + "</h5><img  id='shop" + idd + "' src='public/Mushroom_img/" + shopimgs[idd] + ".png' width='100' style='display:block; margin:auto;'></div><div class='card-footer'><div class='row'><div class='col align-self-center'><h5 id='price" + idd + "'>" + shopprices[idd] + "ETH</h5></div><div class='col-4'><button id='buy" + idd + "' type='button' class='btn btn-light'>Buy</button></div></div></div></div></div>";
+            }
+            document.getElementById("shopbody").innerHTML = string;
+            
+            idd=1;
+            for(idd=1;idd<9;idd++){
+                document.getElementById("buy" + idd).onclick=function(){
+                    var str = this.id;
+                    var imgnum = str.substring(str.length-1, str.length);
+                    //alert(imgnum);
+                    //Connect();
+                    //alert(shopprices[imgnum]);
+                    //alert(imgnum);
+                    if(imgnum==8){
+                        accessToMetamask(shopprices[imgnum],null,null);
+                    }else{
+                        accessToMetamask(shopprices[imgnum],shopimgs[imgnum],shopnames[imgnum]);
+                    }
+                    
+                    
+                    document.getElementById("img" + choose_id).src = document.getElementById("shop" + imgnum).src;
+                    //alert(shopnames[imgnum]);
+                    havenames.push(shopnames[imgnum]);
+                    id++;
+                    //modal.style.display = "none";
+                }
+            }
+            
+        }
+        function closeshop(){
+            modal.style.display = "none";
+        }
+        function selfclose(){
+            selfmodal.style.display = "none";
+        }
+        function sell(){//賣菇菇
+            var price=document.getElementById("costomprice").value;  //自訂價格
+        }
+
+
+        const initPayButton = () => {
+            $('.pay-button').click(() => {
+                // paymentAddress is where funds will be send to
+                // const paymentAddress = '0x08eDAfa896BeEBF7BEFdFB72d9e9dbB80CF50423'
+                // const amountEth = 10
+
+                // web3.eth.sendTransaction({
+                // to: paymentAddress,
+                // value: web3.toWei(amountEth, 'ether')
+                // }, (err, transactionId) => {
+                // if  (err) {
+                //     console.log('Payment failed', err)
+                //     $('#status').html('Payment failed')
+                // } else {
+                //     console.log('Payment successful', transactionId)
+                //     $('#status').html('Payment successful')
+                // }
+                // })
+                idd=1;
+                for(idd=1;idd<9;idd++){
+                    document.getElementById("buy" + idd).onclick=function(){
+                        var str = this.id;
+                        var imgnum = str.substring(str.length-1, str.length);
+                        //alert(imgnum);
+                        //Connect();
+                        //modal.style.display = "none";
+                        newMushroom();
+                        if(this.id == 9){
+                            newMushroom();
+                        }
+                        document.getElementById("img" + choose_id).src = document.getElementById("shop" + imgnum).src;
+                        alert(shopnames[imgnum]);
+                        havenames.push(shopnames[imgnum]);
+                        id++;
+                    }
+                }
+            })
+        }
+	</script>
+    </body>
+</html>

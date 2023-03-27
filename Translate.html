@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+    <head>
+        <meta charset="utf-8">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="./block.js"></script>
+        <title>Translate</title>
+    </head>
+    <body>
+        <div class="Menu fixed-top">
+			<div class="row align-items-end" style="margin-top: 10px;">
+				<div class="col-6">
+					<h1>Mushroom Kindom</h1>
+				</div>
+				<div class="col-2">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						My Mushroom
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="Translate.html">Translate record</a>
+						<a class="dropdown-item" href="modal_test.html">My mushroom</a>
+					</div>
+				</div>
+                <div class="col">
+					<button  id="connect_button" class="btn btn-default" type="button" value="connect" onclick="Connect()">
+						Connect Wallet
+					</button>
+				</div>
+                <div class="col">
+					<button  id="pair_btn" class="btn btn-default" type="button" onclick="window.location.href='pair.html'">
+						Mushroom Pair
+					</button>
+				</div>
+			</div>
+		</div>
+        <div class="Box">
+			<div class="tab_css">
+                <!-- TAB1 打包區塊 start -->
+                <input id="tab1" type="radio" name="tab" checked="checked"/>
+                <label for="tab1">Translate</label>
+                <div class="tab_content">
+                    <h3>交易紀錄</h3>
+                    <table id="tab">
+                      <thead>
+                           <tr>
+                               <th>日期</th><th>時間</th><th>交易金額</th><th>交易玩家</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <!-- TAB1 打包區塊 end -->
+                
+                <!-- TAB2 打包區塊 start -->
+                <input id="tab2" type="radio" name="tab"/>
+                <label for="tab2">已報價</label>
+                <div class="tab_content">
+                    <h3>報價紀錄</h3>
+                    <button type="button" onclick="sendrow()">傳送報價</button>
+                    <table id="tab_2">
+                        <thead>
+                             <tr>
+                                 <th>日期</th><th>時間</th><th>交易金額</th><th>交易玩家</th><th id="acceptth"></th><th id="acceptth"></th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             
+                          </tbody>
+                      </table>
+                </div>
+                <!-- TAB2 打包區塊 end -->
+                
+                <!-- TAB3 打包區塊 start -->
+                <input id="tab3" type="radio" name="tab"/>
+                <label for="tab3">頁籤 3</label>
+                <div class="tab_content">
+                第 3 個頁籤內容區塊<br/>
+                WFU BLOG | Blogger 調校資料庫<br/>
+                第 3 個頁籤內容區塊<br/>
+                WFU BLOG | Blogger 調校資料庫<br/>
+                第 3 個頁籤內容區塊<br/>
+                WFU BLOG | Blogger 調校資料庫<br/>
+                </div>
+                <!-- TAB3 打包區塊 end -->
+                </div>
+		</div>
+    </body>
+    <style>
+        table{
+            width: 1000px;
+            border-collapse: collapse;
+        }
+        th{
+            font-size: 15px;
+            width: 1000px;
+            border: 1px solid #ED9E59;
+            background-color: #ED9E59;
+            color: #FFFFFF;
+            padding-left: 10px;
+        }
+        td{
+            font-size: 15px;
+            height: 40px;
+            border-bottom: 1px solid #ED9E59;
+            padding-left: 10px;
+        }
+        .Test{
+			background-color: #ED9E59;
+		}
+		.Menu{
+            padding-left: 10px;
+            height: 70px;
+			clear:both;
+			background-color: #FAD3C1;
+		}
+        .btn-light {
+            color: #FFFFFF;
+            background-color: #ED9E59;
+            border-color: #ED9E59;
+        }
+        .acceptbtn, .deletebtn{
+            color:#FFFFFF;
+            background: #ED9E59 !important;
+            outline: None;
+            border-radius: 5px;
+        }
+		.btn-group{
+			clear:both;
+			background-color: #FAD3C1;
+		}
+		.dropdown-menu{
+			background-color: #FFFFFF;
+		}
+	    h1{color:#FFFFFF;}
+		h3{color:#000000;}
+		.Box{
+			padding-top: 100px;
+            padding-left: 10px;
+		}
+        .trainslate-menu{
+            background-color: #000000;
+        }
+        .tab_css{display:flex;flex-wrap:wrap;justify-content:start;}
+        .tab_css input{display:none}
+        .tab_css label{margin: 0 5px 5px 0; padding: 10px 16px; cursor: pointer; border-radius: 5px; background: #ED9E59; color: #fff; opacity: 0.5;}
+        .tab_content{order:1;display: none; width:100%; border-bottom: 3px solid #ddd; line-height: 1.6; font-size: .9em; padding: 15px; border: 1px solid #ddd; border-radius: 5px;}
+        .tab_css input:checked + label, .tab_css label:hover{opacity: 1; font-weight:bold;}
+        .tab_css input:checked + label + .tab_content{display: initial;}
+    </style>
+    <script>
+        var tbodyRef = document.getElementById('tab').getElementsByTagName('tbody')[0];
+        var tbodyRef2 = document.getElementById('tab_2').getElementsByTagName('tbody')[0];
+        var translatenum=1;
+        var translatenum2=1;
+        // Insert a row at the end of table
+        addrow();
+        function addrow(){
+            for(var i=0; i<5; i++){
+                var newRow = tbodyRef.insertRow(-1);
+                //日期/時間/交易金額/交易玩家
+                //id要調不能都是12345
+                newRow.innerHTML='<td>Date</td><td>Time</td><td>ETH</td><td>Name</td><td align="left"></td>';
+                //newRow.style.width="5000px";
+                translatenum++;
+            }
+        }
+        function sendrow(){
+            for(var i=0; i<5; i++){
+                var newRow = tbodyRef2.insertRow(-1);
+                //日期/時間/交易金額/交易玩家
+                newRow.innerHTML='<td>Date</td><td>Time</td><td>ETH</td><td>Name</td><td align="left"><button id="' + translatenum2 + '" type="button" class="btn btn-light" onclick="accept(' + translatenum2 + ')" color="#ED9E59">Accept'+ translatenum2 +'</button></td><td align="right"><button id="' + translatenum2 + '" type="button" class="btn btn-light" onclick="deleterow(' + translatenum2 + ')">Delete'+ translatenum2 +'</button></td>';
+                //newRow.style.width="5000px";
+                translatenum2++;
+                //document.write(translatenum2);
+            }
+        }
+        var tab=document.getElementById("tab"); //獲取表格元素
+         var rows=tab.insertRow(); //返回包含表格中所有行的一個數組。
+         cells=rows[1].cells //某一行的單元格
+         alert(rows[1].cells[2].innerHTML)
+         rows[1].cells[2].innerHTML='資料13';
+         rows[1].cells[2].style.color='red'
+     //增加行的方法2
+      //更加的靈活
+        function addtr(){
+            var tab=document.getElementById("tab");
+            var tradd=tab.insertRow(4);
+            tradd.style.background='white';
+            tradd.innerHTML='<td>新增01</td><td>新增02</td><td>新增03</td><td>新增04</td>';
+        }
+        function Delete(){
+            tab.deleteRow(0);
+        }
+    </script>
+</html>
